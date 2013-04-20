@@ -1,6 +1,6 @@
 package test;
 
 public enum tester {
-	/**a test of git**/
+	/**a test of git again**/
 
 }
