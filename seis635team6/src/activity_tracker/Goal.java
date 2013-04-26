@@ -6,7 +6,7 @@ public class Goal {
 		//where user specific goals are stored
 	
 		//setGoal
-		//goal options: C25K, 5K, 10K, half-marathon
+		//goal options: C25K, 5K, 10K, half-marathon, etc
 	
 		//getGoal
 }
