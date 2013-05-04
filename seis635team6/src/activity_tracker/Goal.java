@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
 
-public class Goal {
+public class Goal extends TextType{
 
 		//constructor
 		//where user specific goals are stored
