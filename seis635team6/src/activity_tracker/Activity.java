@@ -26,9 +26,45 @@ public class Activity { //this should probably be a collection
 		note = n;
 	}
 	
+	public void setActivity( Calendar d, float dur, String ttl, String n )
+	{
+		d = c;
+		duration = dur;
+		
+		//set default title if none provided
+		if (ttl == ""){
+			title = "Running";
+		}
+		else
+		{
+			title = ttl;
+		}
+		
+		note = n;
+	}
 	
+	public Calendar getDate()
+	{
+		return c;
+	}
 	
-	//setActivity
+	public String getType()
+	{
+		return type;
+	}
 	
-	//getActivity
+	public float getDuration()
+	{
+		return duration;
+	}
+	
+	public String getTitle()
+	{
+		return title;
+	}
+	
+	public String getNote()
+	{
+		return note;
+	}
 }
