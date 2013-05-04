@@ -22,6 +22,40 @@ public class Goal extends TextType{
 	
 	private String username;
 	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public Long getStartdate() {
+		return startdate;
+	}
+
+	public void setStartdate(long startdate) {
+		this.startdate = startdate;
+	}
+
+	public String getGoaltype() {
+		return goaltype;
+	}
+
+	public void setGoaltype(String goaltype) {
+		this.goaltype = goaltype;
+	}
+
+	public long getEnddate() {
+		return enddate;
+	}
+
+	public void setEnddate(long enddate) {
+		this.enddate = enddate;
+	}
+
+
+
 	private long startdate;
 	
 	private String goaltype;
@@ -64,7 +98,8 @@ public class Goal extends TextType{
 		this.startdate=startdate;
 		this.enddate=enddate;
 	}
-	    
+	   //eventually delete 
+	/*
 	public void getGoal(String username,File goalFile) {
 		
 		try{
@@ -84,6 +119,7 @@ public class Goal extends TextType{
 			
 		}
 	}
+	*/
 
 
 	
@@ -93,7 +129,7 @@ public class Goal extends TextType{
 		Goal goal = new Goal();
 		goal.setGoal("Liz","BeAwesome",1234,56789,goalFile);
 		goal.setGoal("Sue","RunMaybe",1234,56789,goalFile);
-		goal.getGoal("random user",goalFile);
+		//goal.getGoal("random user",goalFile);
 	}
 
 }
