@@ -32,8 +32,8 @@ public class Activity { //this should probably be a collection
 		duration = dur;
 		
 		//set default title if none provided
-		if (ttl == "";){
-			title = "Running"
+		if (ttl == ""){
+			title = "Running";
 		}
 		else
 		{
