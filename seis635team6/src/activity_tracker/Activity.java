@@ -10,20 +10,23 @@ public class Activity { //this should probably be a collection
 	private String type = "running"; //assume running for initial build
 	private String title;
 	private String note;
+	private String username;
 	
 	/** Constructor
 	 * @param date		activity date
-	 * @param duration	activity duration in hh:mm:ss
+	 * @param duration	activity duration seconds???
 	 * @param type		activity type
 	 * @param title		activity title
 	 * @param note		activity notes
+	 * @param username	which user activity belongs to
 	 */
-	public Activity( Calendar d, float dur, String ttl, String n)
+	public Activity( Calendar d, float dur, String ttl, String n, String u)
 	{
 		c = d;
 		duration = dur;
 		title = ttl;
 		note = n;
+		username = u;
 	}
 	
 	public Activity (Activity a)
@@ -33,9 +36,10 @@ public class Activity { //this should probably be a collection
 		type = a.type;
 		title = a.title;
 		note = a.note;
+		username = a.username;
 	}
 	
-	public void setActivity( Calendar d, float dur, String ttl, String n )
+	public void setActivity( Calendar d, float dur, String ttl, String n, String u )
 	{
 		d = c;
 		duration = dur;
@@ -50,6 +54,8 @@ public class Activity { //this should probably be a collection
 		}
 		
 		note = n;
+		
+		username = u;
 	}
 	
 	public Calendar getDate()
@@ -75,5 +81,10 @@ public class Activity { //this should probably be a collection
 	public String getNote()
 	{
 		return note;
+	}
+	
+	public String getUsername()
+	{
+		return username;
 	}
 }
