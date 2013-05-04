@@ -1,0 +1,56 @@
+system, 1, running, , Rest or run/walk
+system, 2, running, 1.5, Run
+system, 3, running, , Rest or run/walk
+system, 4, running, 1.5, Run
+system, 5, running, 0, Rest
+system, 6, running, 1.5, Run
+system, 7, running, , 30-60 min walk
+system, 8, running, , Rest or run/walk
+system, 9, running, 1.75, Run
+system, 10, running, , Rest or run/walk
+system, 11, running, 1.5, Run
+system, 12, running, 0, Rest
+system, 13, running, 1.75, Run
+system, 14, running, , 35-60 min walk
+system, 15, running, , Rest or run/walk
+system, 16, running, 2, Run
+system, 17, running, , Rest or run/walk
+system, 18, running, 1.5, Run
+system, 19, running, 0, Rest
+system, 20, running, 2, Run
+system, 21, running, , 40-60 min walk
+system, 22, running, , Rest or run/walk
+system, 23, running, 2.25, Run
+system, 24, running, , Rest or run/walk
+system, 25, running, 1.5, Run
+system, 26, running, 0, Rest
+system, 27, running, 2.25, Run
+system, 28, running, , 45-60 min walk
+system, 29, running, , Rest or run/walk
+system, 30, running, 2.5, Run
+system, 31, running, , Rest or run/walk
+system, 32, running, 2, Run
+system, 33, running, 0, Rest
+system, 34, running, 2.5, Run
+system, 35, running, , 50-60 min walk
+system, 36, running, , Rest or run/walk
+system, 37, running, 2.75, Run
+system, 38, running, , Rest or run/walk
+system, 39, running, 2, Run
+system, 40, running, 0, Rest
+system, 41, running, 2.75, Run
+system, 42, running, , 55-60 min walk
+system, 43, running, , Rest or run/walk
+system, 44, running, 3, Run
+system, 45, running, , Rest or run/walk
+system, 46, running, 2, Run
+system, 47, running, 0, Rest
+system, 48, running, 3, Run
+system, 49, running, , 60 min walk
+system, 50, running, , Rest or run/walk
+system, 51, running, 3, Run
+system, 52, running, , Rest or run/walk
+system, 53, running, 2, Run
+system, 54, running, 0, Rest
+system, 55, running, 0, Rest
+system, 56, running, , 5K Race
