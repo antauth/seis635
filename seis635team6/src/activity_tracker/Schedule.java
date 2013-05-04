@@ -2,7 +2,14 @@ package activity_tracker;
 
 public class Schedule {
 
-		//constructor
+	//set instance variables
+	int day;
+	String activityType = "running";
+	String username;
+	float distance;
+	String title;	
+	
+	//constructor
 	
 		//getSchedule
 		//account for schedule owner: system or user
