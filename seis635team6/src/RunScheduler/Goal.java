@@ -23,39 +23,53 @@ public class Goal {
 		this.goaltype=goaltype;
 		this.startdate=startdate;
 		this.enddate=enddate;
-		System.out.print("you might still succeed?");
 		//text file in the form:
 		//username; startdate; enddate; goaltype
-		
-		/*
-		 * BufferedReader br = new BufferedReader(new FileReader("file.txt"));
-    try {
-        StringBuilder sb = new StringBuilder();
-        String line = br.readLine();
 
-        while (line != null) {
-            sb.append(line);
-            sb.append("\n");
-            line = br.readLine();
-        }
-        String everything = sb.toString();
-    } finally {
-        br.close();
-    }
-		 */
 
 				try {
 					fw = new FileWriter("Goal.txt");
 					BufferedWriter out = new BufferedWriter(fw);
 					//out.newLine();
-					out.write(username + "; " + startdate + "; " + enddate + "; " + goaltype + ";");
+					out.append(username + ";" + startdate + ";" + enddate + ";" + goaltype + ";" +"\n");
 					out.close();
-		        System.out.print("I should have printed something");
+		        //System.out.print("I should have printed something");
 		        } catch (IOException e) {
 		        	System.out.print("you fail");
 		        }
 	    }
+	
+	public Goal (){
+		
+	}
 	    
+	public void getGoal(String username) {
+		//Goal goal = new Goal();
+		
+		try{
+		//BufferedReader reader = new BufferedReader(new FileReader("/path/to/file.txt"));
+			BufferedReader reader = new BufferedReader(new FileReader("Goal.txt"));
+		String line = null;
+		int ctr=0;
+		//while ((line = reader.readLine()) != null){
+		while ((line = reader.readLine()) != null ) {
+			//ctr=0;
+			//while (ctr<4) {
+			//String s = "prefix/dir1/dir2/dir3/dir4";
+				String[] tokens = line.split(";");
+
+				for (String t : tokens)
+					System.out.print(t + " ");
+				
+			ctr ++;
+			//}
+			
+		}
+		}
+		catch(IOException e){
+			
+		}
+	}
 
 	public String getUsername() {
 		return username;
@@ -91,6 +105,8 @@ public class Goal {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Goal goal = new Goal("Liz","Be Awesome",1234, 56789);
+		Goal goal = new Goal("Liz","BeAwesome",1234, 56789);
+		goal = new Goal("Pat","RunMaybe",1234, 56789);
+		goal.getGoal("random user");
 	}
 }
