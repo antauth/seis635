@@ -87,4 +87,9 @@ public class Activity { //this should probably be a collection
 	{
 		return username;
 	}
+	
+	public String toString()
+	{
+		return username + "," + c.getTime() + "," + title + "," + type + "," + duration;
+	}
 }
