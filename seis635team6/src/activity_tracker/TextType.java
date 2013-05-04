@@ -4,8 +4,8 @@ public abstract class TextType {
 	public String getUsername(){
 		return null;
 	}
-	public Long getStartdate(){
-		return null;
+	public int getStartdate(){
+		return (Integer) null;
 	}
 
 }

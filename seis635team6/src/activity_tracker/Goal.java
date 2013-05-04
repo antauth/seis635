@@ -30,11 +30,11 @@ public class Goal extends TextType{
 		this.username = username;
 	}
 
-	public Long getStartdate() {
+	public int getStartdate() {
 		return startdate;
 	}
 
-	public void setStartdate(long startdate) {
+	public void setStartdate(int startdate) {
 		this.startdate = startdate;
 	}
 
@@ -46,21 +46,21 @@ public class Goal extends TextType{
 		this.goaltype = goaltype;
 	}
 
-	public long getEnddate() {
+	public int getEnddate() {
 		return enddate;
 	}
 
-	public void setEnddate(long enddate) {
+	public void setEnddate(int enddate) {
 		this.enddate = enddate;
 	}
 
 
 
-	private long startdate;
+	private int startdate;
 	
 	private String goaltype;
 
-	private long enddate;
+	private int enddate;
 	
 	BufferedWriter writer;
 	
@@ -68,7 +68,7 @@ public class Goal extends TextType{
 	
 	//FileWriter fw;
 	
-	public boolean setGoal (String username, String goaltype, long startdate, long enddate,File goalFile){
+	public boolean setGoal (String username, String goaltype, int startdate, int enddate,File goalFile){
 
 		//text file in the form:
 		//username; startdate; enddate; goaltype
@@ -76,8 +76,9 @@ public class Goal extends TextType{
 				try {
 
 					BufferedWriter out = new BufferedWriter(new FileWriter(goalFile,true));
-					out.append(username + ";" + startdate + ";" + enddate + ";" + goaltype + ";\n");
 					out.newLine();
+					out.append(username + ";" + goaltype + ";" + startdate + ";" + enddate + ";");
+					
 					out.close();
 					return true;
 
@@ -91,8 +92,11 @@ public class Goal extends TextType{
 	public Goal (){
 		
 	}
+	public String toString(){
+		return username + " " + goaltype + " " + startdate + " " + enddate + " ";
+	}
 	
-	public Goal (String username, String goaltype, long startdate, long enddate){
+	public Goal (String username, String goaltype, int startdate, int enddate){
 		this.username=username;
 		this.goaltype=goaltype;
 		this.startdate=startdate;
