@@ -17,6 +17,7 @@ public class ActivityLinkedList extends ShellLinkedList {
 	}
 	
 	public Activity delete (String username, Calendar cal)
+		throws DataStructureException
 	{
 		ActivityNode current = head;
 		ActivityNode previous = null;
@@ -29,7 +30,8 @@ public class ActivityLinkedList extends ShellLinkedList {
 		}
 		
 		if (current == null)
-			//throw exception
+			throw new DataStructureException ( "No workout found for " + username + 
+					" on " + cal.getTime());
 			
 		else
 		{
