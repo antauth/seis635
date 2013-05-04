@@ -30,57 +30,30 @@ public class TextFileRead {
 	
 	public TextType[] getTextEntries() {
 		try{
-			//BufferedReader reader = new BufferedReader(new FileReader(file));
 			Scanner s = new Scanner (new FileReader (file)).useDelimiter(";");
-			//String line = null;
 			TextType[] textType = new TextType[500];
 
 			int cnt=0;
-			
-			while(s.hasNext()){
-				/*System.out.print(s.next());
-				System.out.print(s.next());
-				String firstlong=s.next();
-				long l = Long.parseLong(s.next().trim());
-				System.out.print(l);
-				*/
-				//System.out.print(cnt);
-				textType[cnt] = new Goal(s.next(),
-						s.next(),
-						Long.parseLong(s.next().trim()),
-						Long.parseLong(s.next().trim()));
-				//System.out.print(textType[cnt].getUsername());
-				//System.out.print(textType[cnt].getStartdate());
-				cnt++;
-				//System.out.print(s.hasNext());
-			/*while ((line = reader.readLine()) != null ) {
-				if(type.equals("goal")){	
-					int ctr=0;
-					int cnt=0;
+			if (type.equals("goal")){
+				while(s.hasNext()){
+					textType[cnt] = new Goal(s.next(),
+							s.next(),
+							Long.parseLong(s.next().trim()),
+							Long.parseLong(s.next().trim()));
 					
-					String[] tokens = line.split(";");
-					System.out.print(tokens.length);
-					System.out.print(tokens[0]);
-					System.out.print(tokens[1]);
-					System.out.print(tokens[2]);
-					while(ctr<tokens.length){
-						textType[cnt] = new Goal(tokens[ctr],tokens[ctr+1],Long.parseLong(tokens[ctr+2]),
-								Long.parseLong(tokens[ctr+3]));
-						cnt++;
-						ctr=ctr+4;
-					}
-					//for (String t : tokens)
-					//	System.out.print(t + " ");
+					cnt++;
 				}
-				else if(type.equals("activity")){
-					
-				}
-				else if(type.equals("schedule")){
-					
+			}
+			/*else if (type.equals("schedule")){
+				while(s.hasNext()){
+					//Schedule (int d, String a, String u, float dist, String t)
+					textType[cnt] = new Schedule(Integer.parseInt(s.next().trim()), s.next(),
+							s.next(),Float.parseFloat(s.next().trim()),s.next());
+					cnt++;
 				}
 			}
 			*/
-			}
+			
 			return textType;
 		}
 		catch(IOException e){
