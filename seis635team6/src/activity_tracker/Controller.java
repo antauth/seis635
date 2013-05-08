@@ -16,13 +16,13 @@ public class Controller {
 	File goalFile;
 	File activityFile;
 	File scheduleFile;
-	TextFileRead tfr;
+	TextFileRead gtfr;
 	
-	public Controller(){
-		goal = new Goal();
+	public Controller(File goalFile, File activityFile, File scheduleFile){
+		goal = new Goal(goalFile);
 		scanner = new Scanner (System.in);
 		goalFile = new File("goal.txt");
-		tfr = new TextFileRead();
+		gtfr = new TextFileRead(goalFile);
 		
 	}
 	
@@ -50,16 +50,16 @@ public class Controller {
 	}
 	
 	public void diplayGoals(String userName){
-		Goal[] gl = new Goal[tfr.getTextEntries(goalFile, "goal").length];
+		Goal[] g = goal.getGoal();
 		//gl = tfr.getTextEntries(goalFile, "goal");
 		//System.out.println("gl is " + gl.length);
 		int ctr=0;
-		while (tfr.getTextEntries(goalFile, "goal")[ctr]!=null){
-			if(tfr.getTextEntries(goalFile, "goal")[ctr].getUsername().equals(userName)){
-				System.out.println(tfr.getTextEntries(goalFile, "goal")[ctr].toString());
+		while (g[ctr]!=null){
+			if(g[ctr].getUsername().equals(userName)){
+				System.out.println(g[ctr].toString());
 				System.out.println(ctr);
 			}
-			System.out.println("current user name is " + tfr.getTextEntries(goalFile, "goal")[ctr].getUsername());
+			System.out.println("current user name is " + g[ctr].getUsername());
 			ctr++;
 		}
 		this.displayInitialPrompt(userName);
@@ -89,7 +89,7 @@ public class Controller {
 				startdate = Integer.parseInt(scanner.next().trim());
 				System.out.println("Please enter an end goal date in the form MMDDYYYY");
 				enddate = Integer.parseInt(scanner.next().trim());
-				goal.setGoal(userName, gt, startdate, enddate, goalFile);
+				goal.setGoal(new Goal(userName, gt, startdate, enddate));
 				
 			}
 		}
