@@ -105,7 +105,7 @@ public class TextFileRead {
 	}
 
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		File goalFile = new File("Goal.txt");
 		Goal goal = new Goal(goalFile);
@@ -118,6 +118,6 @@ public class TextFileRead {
 		//goal.getGoal();
 		goal.setGoal(new Goal("Sue","RunMaybe",1234,56789));
 		//System.out.println("start1 " + t.textToString() + " 1end");
-	}
+	}*/
 
 }

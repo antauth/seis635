@@ -4,6 +4,12 @@ import java.io.Console;
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * 
+ * @author Liz
+ * @author Antoinette
+ *
+ */
 public class Controller {
 	
 	//menu options: record activity, set goal, view schedule, view training
@@ -26,6 +32,10 @@ public class Controller {
 		
 	}
 	
+	public Controller(){
+		scanner = new Scanner (System.in);	
+	}
+	
 	public void displayUserPrompt(){
 		System.out.println("Please select the number associated to the user");
 		System.out.println("Liz");
@@ -40,13 +50,16 @@ public class Controller {
 		System.out.println("2) View Goal");
 		System.out.println("3) Create Activity");
 		System.out.println("4) View Schedule");
+		System.out.println("5) Quit");
 		String response = scanner.next();
 		
+		do {
 		if(response.equals("1")) this.displayCreateGoalPrompt(userName);
 		else if (response.equals("2")) this.diplayGoals(userName);
-		else if (response.equals("2")) this.displayCreateActivityPrompt();
+		else if (response.equals("3")) this.displayCreateActivityPrompt();
 		else if (response.equals("4")) this.displaySchedule();
 		//return n;
+		} while (!response.equals("5"));
 	}
 	
 	public void diplayGoals(String userName){
@@ -62,7 +75,6 @@ public class Controller {
 			System.out.println("current user name is " + g[ctr].getUsername());
 			ctr++;
 		}
-		this.displayInitialPrompt(userName);
 	}
 	
 	public void displayCreateGoalPrompt(String userName){
@@ -93,7 +105,6 @@ public class Controller {
 				
 			}
 		}
-		this.displayInitialPrompt(userName);
 	}
 	
 	public void displayCreateActivityPrompt(){
