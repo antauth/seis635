@@ -4,8 +4,10 @@
 package activity_tracker;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
@@ -23,36 +25,27 @@ public class TextFileRead {
 	File file;
 	String type;
 	
-	public TextFileRead(File file, String type){
+	public TextFileRead(File file){
+		//this.file=file;
+		//this.type=type;
 		this.file=file;
-		this.type=type;
 	}
-	
-	public TextType[] getTextEntries() {
+	/*
+	public Goal[] getTextEntries(File file, String type) {
 		try{
 			Scanner s = new Scanner (new FileReader (file)).useDelimiter(";");
-			TextType[] textType = new TextType[500];
+			Goal[] textType = new Goal[500];
 
 			int cnt=0;
 			if (type.equals("goal")){
 				while(s.hasNext()){
 					textType[cnt] = new Goal(s.next(),
 							s.next(),
-							Long.parseLong(s.next().trim()),
-							Long.parseLong(s.next().trim()));
-					
+							Integer.parseInt(s.next().trim()),
+							Integer.parseInt(s.next().trim()));
 					cnt++;
 				}
 			}
-			/*else if (type.equals("schedule")){
-				while(s.hasNext()){
-					//Schedule (int d, String a, String u, float dist, String t)
-					textType[cnt] = new Schedule(Integer.parseInt(s.next().trim()), s.next(),
-							s.next(),Float.parseFloat(s.next().trim()),s.next());
-					cnt++;
-				}
-			}
-			*/
 			
 			return textType;
 		}
@@ -60,23 +53,71 @@ public class TextFileRead {
 			return null;
 		}
 	}
-
+	*/
+	/*
+	 * This method reads a file and converts 
+	 * it to a string
+	 * 
+	 * @param file of type File
+	 * @return String - concatenated string
+	 * 
+	 */
 	
-	
-	private void elseif() {
-		// TODO Auto-generated method stub
-		
+	public String textToString() {
+		StringBuilder s= new StringBuilder();
+		try{
+			Scanner sc=new Scanner(file);
+			sc.nextLine();		
+		while (sc.hasNextLine()) {
+			s.append(sc.nextLine());
+		   
+		}
+		sc.close();
+		}
+		catch(IOException e){
+			
+		}
+		return s.toString();
 	}
+	/*
+	 * This method takes a string and appends
+	 * it to a specified text file
+	 * 
+	 * @param file of type file
+	 * @param s of type String
+	 * @return boolean : true if successfully written else false
+	 * 
+	 */
+	
+	public boolean addToText(String s){
+		try {
+			BufferedWriter out = new BufferedWriter(new FileWriter(file));
+			out.newLine();
+			out.append(s);
+			
+			out.close();
+			return true;
+	
+	    } catch (IOException e) {
+	    	//System.out.print("you fail");
+	    	return false;
+	    }
+	}
+
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		File goalFile = new File("Goal.txt");
-		Goal goal = new Goal();
-		TextFileRead t = new TextFileRead(goalFile,"goal");
-		TextType[] a = t.getTextEntries();
+		Goal goal = new Goal(goalFile);
+		//System.out.print("start " + t.textToString() + " end");
+		//TextType[] a = t.getTextEntries();
 		//goal.setGoal("Liz","BeAwesome",1234,56789,goalFile);
 		//goal.setGoal("Sue","RunMaybe",1234,56789,goalFile);
 		//System.out.print(a[0].getUsername());
+		goal.setGoal(new Goal("Liz","BeAwesome",1234,56789));
+		//goal.getGoal();
+		goal.setGoal(new Goal("Sue","RunMaybe",1234,56789));
+		//System.out.println("start1 " + t.textToString() + " 1end");
 	}
 
 }

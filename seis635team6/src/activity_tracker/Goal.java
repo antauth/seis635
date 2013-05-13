@@ -21,6 +21,55 @@ public class Goal extends TextType{
 		//getGoal
 	
 	private String username;
+	private TextFileRead tfr;
+	//private File goalFile;
+	
+	private int startdate;
+	
+	private String goaltype;
+
+	private int enddate;
+	
+	public boolean setGoal (Goal goal){
+
+		//text file in the form:
+		//username; startdate; enddate; goaltype
+/*
+				try {
+
+					BufferedWriter out = new BufferedWriter(new FileWriter(goalFile,true));
+					out.newLine();
+					out.append(username + ";" + goaltype + ";" + startdate + ";" + enddate + ";");
+					
+					out.close();
+					return true;
+
+		        } catch (IOException e) {
+		        	//System.out.print("you fail");
+		        	return false;
+		        }
+		        */
+		
+			boolean r = tfr.addToText(goal.toString());
+			System.out.print("in set Goal " + tfr.textToString());
+			return r;
+	    }
+	
+	public Goal (File file){
+		//File goalFile= new File ("Goal.txt");
+		tfr = new TextFileRead(file);
+		
+	}
+	public String toString(){
+		return username + " " + goaltype + " " + startdate + " " + enddate + " ";
+	}
+	
+	public Goal (String username, String goaltype, int startdate, int enddate){
+		this.username=username;
+		this.goaltype=goaltype;
+		this.startdate=startdate;
+		this.enddate=enddate;
+	}
 	
 	public String getUsername() {
 		return username;
@@ -30,105 +79,39 @@ public class Goal extends TextType{
 		this.username = username;
 	}
 
-	public Long getStartdate() {
-		return startdate;
-	}
+	public Goal[] getGoal() {
 
-	public void setStartdate(long startdate) {
-		this.startdate = startdate;
-	}
-
-	public String getGoaltype() {
-		return goaltype;
-	}
-
-	public void setGoaltype(String goaltype) {
-		this.goaltype = goaltype;
-	}
-
-	public long getEnddate() {
-		return enddate;
-	}
-
-	public void setEnddate(long enddate) {
-		this.enddate = enddate;
-	}
-
-
-
-	private long startdate;
-	
-	private String goaltype;
-
-	private long enddate;
-	
-	BufferedWriter writer;
-	
-	BufferedReader br;
-	
-	//FileWriter fw;
-	
-	public boolean setGoal (String username, String goaltype, long startdate, long enddate,File goalFile){
-
-		//text file in the form:
-		//username; startdate; enddate; goaltype
-
-				try {
-
-					BufferedWriter out = new BufferedWriter(new FileWriter(goalFile,true));
-					out.append(username + ";" + startdate + ";" + enddate + ";" + goaltype + ";\n");
-					out.newLine();
-					out.close();
-					return true;
-
-		        } catch (IOException e) {
-		        	//System.out.print("you fail");
-		        	return false;
-		        }
-
-	    }
-	
-	public Goal (){
-		
-	}
-	
-	public Goal (String username, String goaltype, long startdate, long enddate){
-		this.username=username;
-		this.goaltype=goaltype;
-		this.startdate=startdate;
-		this.enddate=enddate;
-	}
-	   //eventually delete 
-	/*
-	public void getGoal(String username,File goalFile) {
-		
-		try{
-			BufferedReader reader = new BufferedReader(new FileReader(goalFile));
-		String line = null;
-
-		while ((line = reader.readLine()) != null ) {
-
-				String[] tokens = line.split(";");
-
-				for (String t : tokens)
-					System.out.print(t + " ");
-			
+		int ctr=0;
+		String s = tfr.textToString();
+		System.out.print(s);
+		String[] tokens = s.split(";");
+		Goal[] goal = new Goal[500];
+		System.out.print(tokens.length);
+		while(ctr+3<tokens.length){
+			goal[ctr] = new Goal(tokens[ctr],
+					tokens[ctr+1],
+					Integer.parseInt(tokens[ctr+2].trim()),
+					Integer.parseInt(tokens[ctr+3].trim()));
+			System.out.println(goal.toString());
+			System.out.print("CTR is " + ctr);
+			ctr=ctr+4;;
 		}
-		}
-		catch(IOException e){
-			
-		}
+		return goal;
+
 	}
-	*/
+	
 
 
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		File goalFile = new File("Goal.txt");
-		Goal goal = new Goal();
-		goal.setGoal("Liz","BeAwesome",1234,56789,goalFile);
-		goal.setGoal("Sue","RunMaybe",1234,56789,goalFile);
+		Goal goal = new Goal(goalFile);
+		goal.setGoal(new Goal("Liz","BeAwesome",1234,56789));
+		goal.getGoal();
+		goal.setGoal(new Goal("Sue","RunMaybe",1234,56789));
+		goal.getGoal();
+		
 		//goal.getGoal("random user",goalFile);
 	}
 
