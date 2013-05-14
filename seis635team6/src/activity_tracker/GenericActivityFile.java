@@ -10,27 +10,28 @@ import java.io.*;
  * @author Antoinette
  *
  */
-public class ActivityFile {
+public class GenericActivityFile<E extends GenericActivity> {
 
 	//instance variables
-	List<Activity> activitylist;
-	ListIterator<Activity> activitynavigator;
+	List<E> objectlist;
+	ListIterator<E> objectnavigator;
 	ObjectInputStream o;
 	FileInputStream f;
 	ObjectOutputStream p;
 	FileOutputStream g;
 	
 	/**
-	 * Creates a linked list for activity objects.
+	 * Creates a linked list for objects.
 	 * 
 	 */
-	public ActivityFile (){
-		activitylist = new LinkedList<Activity>();
-		activitynavigator = activitylist.listIterator();
+	public GenericActivityFile (){
+		objectlist = new LinkedList<E>();
+		objectnavigator = objectlist.listIterator();
 	}
 	
-	//read activity file
-	public void readActivityFile(String filename) throws IOException{
+	//read object file
+	@SuppressWarnings("unchecked")
+	public void readObjectFile(String filename) throws IOException{
 		File file = new File(filename);
 		
 		if (file.exists())
@@ -44,7 +45,7 @@ public class ActivityFile {
 				{
 					do
 					{
-						activitylist.add((Activity) o.readObject());
+						objectlist.add((E) o.readObject());
 					}while(f.available() > 0);
 				}
 				catch (EOFException e)
@@ -73,10 +74,10 @@ public class ActivityFile {
 		else throw new NullPointerException();
 	}
 	
-	//write to activity file
-	public void writeActivityFile(String filename, List<Activity> a) throws IOException{
+	//write to object file
+	public void writeObjectFile(String filename, List<E> a) throws IOException{
 		File file = new File(filename);
-		ListIterator<Activity> iterate = a.listIterator();
+		ListIterator<E> iterate = a.listIterator();
 		
 			try
 			{
@@ -110,13 +111,13 @@ public class ActivityFile {
 			
 	}
 	
-	//get next activity
-	public Activity getNext(){
-		return activitynavigator.next();
+	//get next object
+	public E getNext(){
+		return objectnavigator.next();
 	}
 	
-	//get previous activity
-	public Activity getPrevious(){
-		return activitynavigator.previous();
+	//get previous object
+	public E getPrevious(){
+		return objectnavigator.previous();
 	}
 }

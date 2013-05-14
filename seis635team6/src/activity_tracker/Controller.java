@@ -2,7 +2,9 @@ package activity_tracker;
 
 import java.io.Console;
 import java.io.File;
-import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * 
@@ -20,11 +22,15 @@ public class Controller {
 	Goal goal;
 	Scanner scanner;
 	File goalFile;
-	File activityFile;
-	File scheduleFile;
 	TextFileRead gtfr;
 	
-	public Controller(File goalFile, File activityFile, File scheduleFile){
+	String datePattern = "MMddyyy";
+	SimpleDateFormat format = new SimpleDateFormat(datePattern);
+	
+	String durationPattern = "hhmmss";
+	SimpleDateFormat durationFormat = new SimpleDateFormat(durationPattern);
+	
+	public Controller(File goalFile){
 		goal = new Goal(goalFile);
 		scanner = new Scanner (System.in);
 		goalFile = new File("goal.txt");
@@ -56,8 +62,9 @@ public class Controller {
 		do {
 		if(response.equals("1")) this.displayCreateGoalPrompt(userName);
 		else if (response.equals("2")) this.diplayGoals(userName);
-		else if (response.equals("3")) this.displayCreateActivityPrompt();
+		else if (response.equals("3")) this.displayCreateActivityPrompt(userName);
 		else if (response.equals("4")) this.displaySchedule();
+		else if (response.equals("99")) this.displayCreateSchedulePrompt(); //added for administrator creation of serialized schedules
 		//return n;
 		} while (!response.equals("5"));
 	}
@@ -106,13 +113,69 @@ public class Controller {
 			}
 		}
 	}
-	
-	public void displayCreateActivityPrompt(){
+	/**
+	 * @author Antoinette
+	 * @param userName
+	 */
+	public void displayCreateActivityPrompt(String userName){
+		Calendar cal = Calendar.getInstance();
+		Date dur;
+		Date date;
+		int error = 0;
 		
+		System.out.println("Record an activity");
+		System.out.println("For today? Enter Y or N");
+		String response = scanner.next();
+		
+		if(response == "Y" || response == "y" ) //get activity's duration
+		{
+			date = cal.getTime();
+			System.out.println("Enter duration as HHMMSS");
+			do
+			{
+				error = 0;
+				response = scanner.next();
+				if(response == "P" || response == "p")
+				{
+					this.displayCreateActivityPrompt(userName);
+				}
+				else
+				{
+
+					try
+					{
+						dur = durationFormat.parse(response);
+					}
+					catch (ParseException e)
+					{
+						error = 1;
+						System.err.println("Input not in expected format");
+						System.out.println("Enter duration as HHMMSS or type P for previous menu");
+					}
+				}
+			}while (error > 0);
+		}
+		else if (response == "N" || response == "n") //get activity's date
+		{
+			System.out.println("Enter an activity for...");
+			System.out.println("(Y)esterday");
+			System.out.println("A date in MMDDYYYY format");
+			
+			response = scanner.next();
+			if (response == "Y" || response == "y")
+			{
+				
+			}
+		}
 	}
 	
 
 	private void displaySchedule() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private void displayCreateSchedulePrompt() {
 		// TODO Auto-generated method stub
 		
 	}
