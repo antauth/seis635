@@ -26,24 +26,10 @@ public class Schedule extends GenericActivity {
 		//when user modifies a schedule it changes to a new schedule
 	public void setSchedule( int d, String u, float dist, String t )
 	{
-		if (u == systemUser)
-		{
 			day = d;
 			distance = dist;
-		}
-		else if (this.getUsername() == systemUser)
-		{
-			//check for existing modification file
-			if (true) //TODO: file exists
-			{
-				//append file
-			}
-			else
-			{
-				//create file
-				//write to file
-			}
-		}
+			this.setUsername(u);
+			this.setTitle(t);
 	}
 	
 	public int getDay()

@@ -6,49 +6,62 @@ public class Activity extends GenericActivity {
 
 	//instance variables
 	private Calendar c = Calendar.getInstance();
-	private float duration;
+	private Date date = c.getTime();
+	private Date duration;
 	private String note;
 	
 	/** Constructor
 	 * @param date		activity date
-	 * @param duration	activity duration seconds???
+	 * @param duration	activity duration
 	 * @param type		activity type
 	 * @param title		activity title
 	 * @param note		activity notes
 	 * @param username	which user activity belongs to
 	 */
-	public Activity( Calendar d, float dur, String ttl, String n, String u)
+	public Activity( Date d, Date dur, String ttl, String n, String u)
 	{
 		super (ttl, u);
-		c = d;
+		date = d;
 		duration = dur;
 		note = n;
+	}
+	
+	public Activity (String u)
+	{
+		super(u);
+		duration = null;
+		note = "";
 	}
 	
 	public Activity (Activity a)
 	{
 		super(a);
-		c = a.c;
+		date = a.date;
 		duration = a.duration;
 		note = a.note;
 	}
 	
-	public void setActivity( Calendar d, float dur, String ttl, String n, String u )
+	public void setDate (Date d)
 	{
-		d = c;
-		duration = dur;
-		note = n;
-		
-		//setUsername(u);
-		//setTitle;
+		this.date = d;
 	}
 	
-	public Calendar getDate()
+	public void setDuration (Date d)
 	{
-		return c;
+		this.duration = d;
 	}
 	
-	public float getDuration()
+	public void setNote (String n)
+	{
+		this.note = n;
+	}
+	
+	public Date getDate()
+	{
+		return date;
+	}
+	
+	public Date getDuration()
 	{
 		return duration;
 	}
@@ -60,6 +73,6 @@ public class Activity extends GenericActivity {
 	
 	public String toString()
 	{
-		return getUsername() + "," + c.getTime() + "," + getTitle() + "," + getType() + "," + duration;
+		return getUsername() + "," + date + "," + getTitle() + "," + getType() + "," + duration;
 	}
 }

@@ -7,8 +7,11 @@ public abstract class GenericActivity {
 	private String title;
 	private String username;
 	
-	public GenericActivity()
+	public GenericActivity(String u)
 	{
+		type = "running";
+		title = "Running";
+		username = u;
 	}
 	
 	public GenericActivity( String ttl, String u)
@@ -36,6 +39,14 @@ public abstract class GenericActivity {
 		}
 		
 		username = u;
+	}
+	
+	public void setUsername(String u){
+		username = u;
+	}
+	
+	public void setTitle(String t){
+		title = t;
 	}
 	
 	public String getType()

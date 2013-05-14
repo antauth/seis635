@@ -64,6 +64,10 @@ public class GenericActivityFile<E extends GenericActivity> {
 			catch (IOException e)
 			{
 				System.err.println("IO exception");
+			} 
+			catch (NullPointerException e)
+			{
+				System.err.println("Null pointer exception");
 			}
 			finally
 			{
@@ -71,7 +75,7 @@ public class GenericActivityFile<E extends GenericActivity> {
 			}
 			
 		}
-		else throw new NullPointerException();
+		//else throw new NullPointerException();
 	}
 	
 	//write to object file
@@ -108,7 +112,6 @@ public class GenericActivityFile<E extends GenericActivity> {
 			{
 				o.close();
 			}
-			
 	}
 	
 	//get next object
@@ -119,5 +122,9 @@ public class GenericActivityFile<E extends GenericActivity> {
 	//get previous object
 	public E getPrevious(){
 		return objectnavigator.previous();
+	}
+	
+	public void addObject(E obj){
+		objectlist.add(obj);
 	}
 }
