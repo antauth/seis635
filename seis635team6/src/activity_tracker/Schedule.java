@@ -1,47 +1,37 @@
 package activity_tracker;
 
-public class Schedule {
+public class Schedule extends GenericActivity {
 
 	//set instance variables
 	int day;
-	String activityType = "running";
-	String username;
 	float distance;
-	String title;
 	final static String systemUser = "system";
 	
 	//constructor
-	public Schedule (int d, String a, String u, float dist, String t)
+	public Schedule (int d, String a, String u, float dist, String ttl)
 	{
+		super (ttl, u);
 		day = d;
-		activityType = a;
-		username = u;
 		distance = dist;
-		title = t;
 	}
 	
 	public Schedule (Schedule s)
 	{
+		super(s);
 		day = s.day;
-		activityType = s.activityType;
-		username = s.username;
 		distance = s.distance;
-		title = s.title;
 	}
 	
-		//getSchedule
 		//account for schedule owner: system or user
 		//when user modifies a schedule it changes to a new schedule
-	public void setSchedule( int d, String a, String u, float dist, String t )
+	public void setSchedule( int d, String u, float dist, String t )
 	{
 		if (u == systemUser)
 		{
 			day = d;
-			activityType = a;
 			distance = dist;
-			title = t;
 		}
-		else if (this.username == systemUser)
+		else if (this.getUsername() == systemUser)
 		{
 			//check for existing modification file
 			if (true) //TODO: file exists
@@ -61,20 +51,6 @@ public class Schedule {
 		return day;
 	}
 	
-	public String getActivityType()
-	{
-		return activityType;
-	}
-	
-	public String getUsername()
-	{
-		return username;
-	}
-	
-	public String getTitle()
-	{
-		return title;
-	}
 	
 	public float getDistance()
 	{
@@ -83,7 +59,7 @@ public class Schedule {
 	
 	public String toString()
 	{
-		return username + "," + day + "," + title + "," + activityType + "," + distance;
+		return getUsername() + "," + day + "," + getTitle() + "," + getType() + "," + distance;
 	}
 		
 }
