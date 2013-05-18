@@ -30,22 +30,16 @@ public class Controller {
 	String durationPattern = "hhmmss";
 	SimpleDateFormat durationFormat = new SimpleDateFormat(durationPattern);
 	
-	/** Overloaded Constructor
-	 * @author Liz
-	 * @param goalFile
-	 */
-	public Controller(File goalFile){
-		goal = new Goal(goalFile);
-		scanner = new Scanner (System.in);
-		goalFile = new File("goal.txt");
-		gtfr = new TextFileRead(goalFile);
-	}
 	/** Constructor
 	 * Default constructor called by ActivityTrackerMain
+	 * @author Liz
 	 * @author Antoinette
 	 */
 	public Controller(){
-		scanner = new Scanner (System.in);	
+		scanner = new Scanner (System.in);
+		goalFile = new File("goal.txt");
+		goal = new Goal(goalFile);
+		gtfr = new TextFileRead(goalFile);
 	}
 	/**
 	 * User can enter any name as user name.
@@ -58,31 +52,34 @@ public class Controller {
 		//TODO check input for errors
 			do {
 				System.out.println("Please enter your username");
-				userName = scanner.next();
+				userName = scanner.nextLine();
 			} while(userName.length() < 0);
 		this.loadActivities(); //load user's activities
 		this.displayInitialPrompt(); //go to menu prompts
 	}
 	/**
 	 * @author Liz
+	 * @throws IOException 
 	 * 
 	 */
-	public void displayInitialPrompt(){
-		System.out.println("What would you like to do?");
-		System.out.println("1) Create Goal");
-		System.out.println("2) View Goal");
-		System.out.println("3) Create Activity");
-		System.out.println("4) View Activities");
-		System.out.println("5) Quit");
-		String response = scanner.next();
-		
+	public void displayInitialPrompt() throws IOException{
+		String response = null;
 		do {
-		if(response.equals("1")) this.displayCreateGoalPrompt();
-		else if (response.equals("2")) this.diplayGoals();
-		else if (response.equals("3")) this.displayCreateActivityPrompt();
-		else if (response.equals("4")) this.displayActivities();
-		else if (response.equals("99")) this.displayCreateSchedulePrompt(); //added for administrator creation of serialized schedules
-		else this.ungracefulExit();
+			System.out.println("What would you like to do?");
+			System.out.println("1) Create Goal");
+			System.out.println("2) View Goal");
+			System.out.println("3) Create Activity");
+			System.out.println("4) View Activities");
+			System.out.println("5) Quit");
+			response = scanner.nextLine();
+
+
+			if(response.equals("1")) this.displayCreateGoalPrompt();
+			else if (response.equals("2")) this.diplayGoals();
+			else if (response.equals("3")) this.displayCreateActivityPrompt();
+			else if (response.equals("4")) this.displayActivities();
+			else if (response.equals("99")) this.displayCreateSchedulePrompt(); //added for administrator creation of serialized schedules
+			else this.ungracefulExit();
 		} while (!response.equals("5"));
 	}
 	/**
@@ -116,7 +113,7 @@ public class Controller {
 			int startdate;
 			int enddate;
 			String gt=null;
-				goalType = scanner.next();
+				goalType = scanner.nextLine();
 			if(!goalType.equals(4)){
 				if(goalType.equals("1")) gt="Marathon";
 				else if (goalType.equals("2")) gt="10K";
@@ -126,9 +123,9 @@ public class Controller {
 					System.out.println("Incorrect Goal type");
 				}
 				System.out.println("Please enter a start goal date in the form MMDDYYYY");
-				startdate = Integer.parseInt(scanner.next().trim());
+				startdate = Integer.parseInt(scanner.nextLine().trim());
 				System.out.println("Please enter an end goal date in the form MMDDYYYY");
-				enddate = Integer.parseInt(scanner.next().trim());
+				enddate = Integer.parseInt(scanner.nextLine().trim());
 				goal.setGoal(new Goal(userName, gt, startdate, enddate));
 				
 			}
@@ -138,7 +135,7 @@ public class Controller {
 	 * @author Antoinette
 	 * 
 	 */
-	public void displayCreateActivityPrompt(){
+	public Object displayCreateActivityPrompt() throws IOException{
 		Calendar cal = Calendar.getInstance();
 		Date date = cal.getTime(); //set to today
 		Date duration = null;
@@ -148,22 +145,23 @@ public class Controller {
 		
 		System.out.println("Record an activity"); //initial prompt title
 		System.out.println("For today? Enter Y or N"); //default to today for usability
-		String response = scanner.next();
+		String response = scanner.nextLine();
 		
-		if(response == "Y" || response == "y" ) //get today's activity's duration
+		if(response.equals("Y") || response.equals("y") ) //get today's activity's duration
 		{
 			title = this.getTextInput("title");
+			if (title == null) return null;
 			duration = this.getDuration();
 			note = this.getTextInput("note");
 		}
-		else if (response == "N" || response == "n") //get activity's date
+		else if (response.equals("N") || response.equals("n")) //get activity's date
 		{
 			System.out.println("Enter an activity for...");
 			System.out.println("(Y)esterday");
 			System.out.println("A date in MMDDYYYY format");
 			
-			response = scanner.next();
-			if (response == "Y" || response == "y")
+			response = scanner.nextLine();
+			if (response.equals("Y") || response.equals("y"))
 			{
 				cal.add(Calendar.DAY_OF_MONTH, -1);
 				date = cal.getTime();
@@ -184,12 +182,26 @@ public class Controller {
 		
 		//add activity to list
 		this.activityList.addObject(activity);
+		
+		//save prompt not working as expected
+		/*System.out.println("Save this activity now? Y/N");
+		response = scanner.nextLine();
+		
+		if(response.equals("Y") || response.equals("y") )
+		{
+			this.saveActivities();
+		}*/
+		
+		return null;
 	}
 	
 
 	private void displayActivities() {
-		// TODO Auto-generated method stub
+		ListIterator<Activity> iterator = activityList.objectlist.listIterator();
 		
+		do {
+			System.out.println(iterator.next().toString());
+		} while(iterator.hasNext());
 	}
 	
 	private void displayCreateSchedulePrompt() {
@@ -207,25 +219,26 @@ public class Controller {
 		activityList.readObjectFile(userName);
 	}
 	/**
+	 * Saves all activities to a file named after the user.
+	 * @author Antoinette
+	 * @throws IOException
+	 */
+	private void saveActivities() throws IOException{
+		activityList.writeObjectFile();
+	}
+	/**
 	 * Manages activity duration-related prompts.
 	 * @author Antoinette
 	 * @return
 	 */
 	private Date getDuration(){
 		Date dur = null;
-		int error = 0;
-		String response;
-		
-		System.out.println("Enter duration as HHMMSS");
+		String response = null;
 		do
 		{
-			error = 0;
-			response = scanner.next();
-			if(response == "P" || response == "p")
-			{
-				this.displayCreateActivityPrompt();
-			}
-			else
+			response = this.getTextInput("duration as HHMMSS");
+			
+			if(response != null)
 			{
 				try
 				{
@@ -233,12 +246,10 @@ public class Controller {
 				}
 				catch (ParseException e)
 				{
-					error = 1;
 					System.err.println("Input not in expected format");
-					System.out.println("Enter duration as HHMMSS or type P for previous menu");
 				}
 			}
-		}while (error > 0);
+		}while (response == null && dur == null);
 		
 		return dur;
 	}
@@ -253,11 +264,11 @@ public class Controller {
 		String response;
 		
 		System.out.println("Enter ".concat(param).concat(" or type P for previous menu"));
-		response = scanner.next();
+		response = scanner.nextLine();
 		
-		if(response == "P" || response == "p")
+		if(response.equals("P") || response.equals("p"))
 		{
-				this.displayCreateActivityPrompt();
+				response = null;
 		}
 		
 		return response;
@@ -269,7 +280,7 @@ public class Controller {
 	 */
 	private void ungracefulExit()
 	{
-		System.out.println("No appropriate responses given. Application now closing.");
+		System.out.println("Application now closing.");
 		System.exit(0);
 	}
 }

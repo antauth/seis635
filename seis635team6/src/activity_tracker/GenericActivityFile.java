@@ -19,6 +19,7 @@ public class GenericActivityFile<E extends GenericActivity> {
 	FileInputStream f;
 	ObjectOutputStream p;
 	FileOutputStream g;
+	String filename;
 	
 	/**
 	 * Creates a linked list for objects.
@@ -27,11 +28,13 @@ public class GenericActivityFile<E extends GenericActivity> {
 	public GenericActivityFile (){
 		objectlist = new LinkedList<E>();
 		objectnavigator = objectlist.listIterator();
+		filename = "empty.txt";
 	}
 	
 	//read object file
 	@SuppressWarnings("unchecked")
-	public void readObjectFile(String filename) throws IOException{
+	public void readObjectFile(String fn) throws IOException{
+		this.setFilename(fn);
 		File file = new File(filename);
 		
 		if (file.exists())
@@ -63,7 +66,7 @@ public class GenericActivityFile<E extends GenericActivity> {
 			}
 			catch (IOException e)
 			{
-				System.err.println("IO exception");
+				System.err.println("IO exception in reader. Filename is".concat(filename));
 			} 
 			catch (NullPointerException e)
 			{
@@ -79,9 +82,10 @@ public class GenericActivityFile<E extends GenericActivity> {
 	}
 	
 	//write to object file
-	public void writeObjectFile(String filename, List<E> a) throws IOException{
+	public void writeObjectFile() throws IOException{
 		File file = new File(filename);
-		ListIterator<E> iterate = a.listIterator();
+		ListIterator<E> iterate = objectlist.listIterator(0);//start at the first item
+		System.out.print(objectlist.size());
 		
 			try
 			{
@@ -106,25 +110,46 @@ public class GenericActivityFile<E extends GenericActivity> {
 			}
 			catch (IOException e)
 			{
-				System.err.println("IO exception");
+				System.err.println("IO exception. Filename is".concat(filename));
 			}
 			finally
 			{
-				o.close();
+				p.close();
 			}
 	}
 	
 	//get next object
-	public E getNext(){
-		return objectnavigator.next();
+	public E getNext()
+	{
+		if (objectnavigator.hasNext())
+			return objectnavigator.next();
+		else
+			return null;
 	}
 	
 	//get previous object
-	public E getPrevious(){
-		return objectnavigator.previous();
+	public E getPrevious()
+	{
+		if (objectnavigator.hasPrevious())
+			return objectnavigator.previous();
+		else
+			return null;
 	}
 	
-	public void addObject(E obj){
+	public void addObject(E obj)
+	{
 		objectlist.add(obj);
+	}
+	
+	//get filename
+	public String getFilename()
+	{
+		return filename;
+	}
+	
+	//set filename
+	public void setFilename(String f)
+	{
+		filename = f;
 	}
 }
